@@ -1,76 +1,38 @@
 #include<stdio.h>
-#include"game.h"
-void menu()
-{	
-	printf("**************");
-	printf("0.play  1.exit");
-	printf("**************");
-}
-void game()
+void print1(int arr[3][5], int x, int y)
 {
-	char ret = 0;
-	char board[ROW][COL] = { 0 };//数组存放走出的棋盘信息
-	initboard(board, ROW, COL);//棋盘初始化
-	Displayboard(board,ROW,COL);//打印棋盘
-	while (1)
+	int i = 0;
+	for (i = 0; i < x; i++)
 	{
-
-		playermove(board, ROW, COL);//玩家下期
-		Displayboard(board, ROW, COL);
-		ret = iswin(board, ROW, COL);
-		if (ret != 'c')
+		int j = 0;
+		for (j = 0; j < y; j++)
 		{
-			break;
+			printf("%d ", arr[i][j]);
 		}
-		iswin(board, ROW, COL);//判断输赢
-		computermove(board, ROW, COL);//电脑下
-		Displayboard(board, ROW, COL);
-		ret = iswin(board, ROW, COL);
-		if (ret != 'c')
-		{
-			break;
-		}
-	}
-	if (ret == '*')
-	{
-		printf("玩家赢\n");
-	}
-	else if (ret == '#')
-	{
-		printf("电脑赢\n");
-	}
-	else
-	{
-		printf("平局\n");
-	}
+		printf("\n");
 
-
+	}
 }
-void test()
-{	
-	int input = 0;
-	srand((unsigned int)time(NULL));
-	do
+void print2(int (*p)[5], int x, int y)
+{
+	int i = 0;
+	for (i = 0; i < x; i++)
 	{
-		menu();
-		printf("输入：\n");
-		scanf_s("%d", &input);
-		switch (input)
+		int j = 0;
+		for (j = 0; j < y; j++)
 		{
-		case 0:
-			game();
-			break;
-		case 1:
-			printf("退出游戏\n");
-			break;
-		default:
-			printf("输入错误\n");
-			break;
+			printf("%d ", *( * (p + i) + j));
 		}
-	} while (input);
+		printf("\n");
+	}
 }
 int main()
-{	
-	test();
+{
+	int x = 0;
+	int y = 0;
+	int arr[3][5] = { {1,2,3,4,5},{2,3,4,5,6},{3,4,5,6,7} };
+	print1(arr, 3, 5);
+	print2(arr, 3, 5);
 	return 0;
+
 }
